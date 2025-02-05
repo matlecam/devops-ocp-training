@@ -4,7 +4,7 @@ metadata:
   name: nginx-pod
   namespace: matlecam-dev
 spec:
-  imagePullSecret:
+  imagePullSecrets:
     - name: ghcr-pull-secret
   containers:
     - name: nginx

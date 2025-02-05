@@ -60,6 +60,6 @@ jobs:
       run: |
         export IMAGE=${{ steps.push-image.outputs.registry-path }}
         echo ${{ steps.push-image.outputs.registry-path }}
-        sed -i 's|\${IMAGE}|'"$IMAGE"'|g' pod.yaml
+        sed -i 's|\${IMAGE}|'"$IMAGE"'|g' ocp/pod.yaml
         oc apply -f ocp/pod.yaml
         oc get pods

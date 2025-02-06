@@ -66,8 +66,8 @@ jobs:
         sed -i 's|\${IMAGE}|'"$IMAGE"'|g' ocp/pod.yaml ocp/deployment-with-config.yaml
         sed -i 's|\${APP_NAME}|'"$APP_NAME"'|g' ocp/deployment-with-config.yaml ocp/service.yaml  ocp/configmap.yaml ocp/secret.yaml ocp/route.yaml
         sed -i 's|\${OPENSHIFT_NAMESPACE}|'"$OPENSHIFT_NAMESPACE"'|g' ocp/deployment-with-config.yaml ocp/service.yaml  ocp/configmap.yaml ocp/secret.yaml ocp/route.yaml
-        oc apply -f ocp/configmap.yaml ocp/secret.yaml 
-        oc apply -f ocp/deployment-with-config.yaml ocp/service.yaml
+        oc apply -f ocp/configmap.yaml -f ocp/secret.yaml 
+        oc apply -f ocp/deployment-with-config.yaml -f ocp/service.yaml
         oc apply -f deployment/route.yaml
         oc get pods
 

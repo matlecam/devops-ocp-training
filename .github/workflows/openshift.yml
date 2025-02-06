@@ -73,6 +73,6 @@ jobs:
 
     - name: get route
       run: | 
-        ROUTE=$(oc get route $${{ env.APP_NAME }} -n ${{ env.OPENSHIFT_NAMESPACE }} -o jsonpath='{.spec.host}')
+        ROUTE=$(oc get route ${{ env.APP_NAME }} -n ${{ env.OPENSHIFT_NAMESPACE }} -o jsonpath='{.spec.host}')
 
         echo "The route is: http://$ROUTE"

@@ -63,12 +63,20 @@ jobs:
         export APP_NAME=${{ env.APP_NAME }}
         
         echo ${{ steps.push-image.outputs.registry-path }}
-        sed -i 's|\${IMAGE}|'"$IMAGE"'|g' ocp/pod.yaml ocp/deployment-with-config.yaml
-        sed -i 's|\${APP_NAME}|'"$APP_NAME"'|g' ocp/deployment-with-config.yaml ocp/service.yaml  ocp/configmap.yaml ocp/secret.yaml ocp/route.yaml
-        sed -i 's|\${OPENSHIFT_NAMESPACE}|'"$OPENSHIFT_NAMESPACE"'|g' ocp/deployment-with-config.yaml ocp/service.yaml  ocp/configmap.yaml ocp/secret.yaml ocp/route.yaml
-        oc apply -f ocp/configmap.yaml -f ocp/secret.yaml 
-        oc apply -f ocp/deployment-with-config.yaml -f ocp/service.yaml
-        oc apply -f ocp/route.yaml
+        sed -i 's|\${IMAGE}|'"$IMAGE"'|g' ocp-kusto/base/deployment-w-storage.yaml ocp-kusto/overlays/release/deployment-w-storage-patch.yaml ocp-kusto/base/service.yaml
+        sed -i 's|\${APP_NAME}|'"$APP_NAME"'|g' ocp-kusto/base/deployment-w-storage.yaml ocp-kusto/overlays/release/deployment-w-storage-patch.yaml ocp-kusto/base/service.yaml  ocp-kusto/base/configmap-w-storage.yaml ocp-kusto/base/secret.yaml 
+        sed -i 's|\${OPENSHIFT_NAMESPACE}|'"$OPENSHIFT_NAMESPACE"'|g' ocp-kusto/base/deployment-w-storage.yaml ocp-kusto/overlays/release/deployment-w-storage-patch.yaml ocp-kusto/base/service.yaml  ocp-kusto/base/configmap-w-storage.yaml ocp-kusto/base/secret.yam
+        sed -i 's|\${IMAGE}|'"$IMAGE"'|g' ocp-kusto/base/deployment-w-storage.yaml ocp-kusto/base/service.yaml
+        sed -i 's|\${APP_NAME}|'"$APP_NAME"'|g'  ocp-kusto/base/pvc.yaml ocp-kusto/overlays/release/configmap-patch.yaml ocp-kusto/overlays/release/service-patch.yaml 
+        sed -i 's|\${OPENSHIFT_NAMESPACE}|'"$OPENSHIFT_NAMESPACE"'|g' ocp-kusto/base/pvc.yaml ocp-kusto/overlays/release/configmap-patch.yaml ocp-kusto/overlays/release/service-patch.yaml
+        sed -i 's|\${APP_NAME}|'"$APP_NAME"'|g' ocp-kusto/base/route.yaml
+        sed -i 's|\${OPENSHIFT_NAMESPACE}|'"$OPENSHIFT_NAMESPACE"'|g' ocp-kusto/base/route.yaml
+        
+        oc apply -f ocp-kusto/base/pvc.yaml
+        oc apply -f ocp-kusto/base/configmap-w-storage.yaml -f ocp-kusto/base/secret.yaml
+        oc apply -f ocp-kusto/base/deployment-w-storage.yaml -f ocp-kusto/base/service.yaml
+        
+        oc apply -k ocp-kusto/overlays/release 
         oc get pods
 
     - name: get route

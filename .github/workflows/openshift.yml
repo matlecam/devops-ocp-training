@@ -65,7 +65,7 @@ jobs:
         echo ${{ steps.push-image.outputs.registry-path }}
         sed -i 's|\${IMAGE}|'"$IMAGE"'|g' ocp-kusto/base/deployment-w-storage.yaml ocp-kusto/overlays/release/deployment-w-storage-patch.yaml ocp-kusto/base/service.yaml
         sed -i 's|\${APP_NAME}|'"$APP_NAME"'|g' ocp-kusto/base/deployment-w-storage.yaml ocp-kusto/overlays/release/deployment-w-storage-patch.yaml ocp-kusto/base/service.yaml  ocp-kusto/base/configmap-w-storage.yaml ocp-kusto/base/secret.yaml 
-        sed -i 's|\${OPENSHIFT_NAMESPACE}|'"$OPENSHIFT_NAMESPACE"'|g' ocp-kusto/base/deployment-w-storage.yaml ocp-kusto/overlays/release/deployment-w-storage-patch.yaml ocp-kusto/base/service.yaml  ocp-kusto/base/configmap-w-storage.yaml ocp-kusto/base/secret.yam
+        sed -i 's|\${OPENSHIFT_NAMESPACE}|'"$OPENSHIFT_NAMESPACE"'|g' ocp-kusto/base/deployment-w-storage.yaml ocp-kusto/overlays/release/deployment-w-storage-patch.yaml ocp-kusto/base/service.yaml  ocp-kusto/base/configmap-w-storage.yaml ocp-kusto/base/secret.yaml
         sed -i 's|\${IMAGE}|'"$IMAGE"'|g' ocp-kusto/base/deployment-w-storage.yaml ocp-kusto/base/service.yaml
         sed -i 's|\${APP_NAME}|'"$APP_NAME"'|g'  ocp-kusto/base/pvc.yaml ocp-kusto/overlays/release/configmap-patch.yaml ocp-kusto/overlays/release/service-patch.yaml 
         sed -i 's|\${OPENSHIFT_NAMESPACE}|'"$OPENSHIFT_NAMESPACE"'|g' ocp-kusto/base/pvc.yaml ocp-kusto/overlays/release/configmap-patch.yaml ocp-kusto/overlays/release/service-patch.yaml
